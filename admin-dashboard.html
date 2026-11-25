@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - SMK Batik Perbaik Purworejo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Full 1 Layar HP & Laptop + Gradasi Mustard-Merah */
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #e1ad01 0%, #d96b14 52%, #b10d2f 100%);
+            position: relative;
+            padding: 18px 20px 32px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #dashboardMainView { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .btn-back-home {
+            background-color: rgba(255, 255, 255, 0.94); color: #000000; text-decoration: none;
+            font-size: 11.5px; font-weight: 800; padding: 7px 12px; border-radius: 14px;
+            display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+            transition: transform 0.15s ease;
+        }
+        .admin-profile { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .admin-avatar { width: 56px; height: 56px; background-color: #fff9b0; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        .admin-label { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        
+        .welcome-banner {
+            background-color: #c2a7e0; color: #000000; font-family: 'Anton', sans-serif; font-style: italic;
+            font-size: 26px; letter-spacing: 0.8px; text-align: center; padding: 13px 32px;
+            border-radius: 22px; margin-bottom: 34px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+            width: 90%; max-width: 520px; animation: fadeInUp 0.4s ease;
+        }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 20px; width: 100%; margin-bottom: 24px; }
+        .stat-card {
+            background-color: #ffffff; border-radius: 14px; padding: 12px 10px 14px 10px;
+            display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2); cursor: pointer; position: relative;
+            animation: fadeInUp 0.45s ease backwards;
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
+        .notif-dot { display: none; position: absolute; top: -6px; right: -6px; background-color: #cc0c0c; color: #ffffff; font-size: 10px; font-weight: 800; padding: 3px 7px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .stat-icon-circle { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+        .stat-label-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; text-align: left; }
+        .dot-indicator { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+        .stat-label-text { font-family: 'Playfair Display', serif; font-size: 12.5px; font-weight: 700; color: #000000; line-height: 1.15; }
+        .stat-pill { color: #ffffff; font-family: 'Anton', sans-serif; font-size: 14px; letter-spacing: 0.6px; padding: 3px 22px; border-radius: 12px; min-width: 72px; text-align: center; }
+
+        .quick-menu-title { font-family: 'Anton', sans-serif; font-size: 24px; color: #ffffff; letter-spacing: 0.5px; margin-bottom: 14px; text-align: center; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .quick-menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; margin-bottom: 14px; }
+        .menu-card {
+            background-color: #ffffff; border-radius: 14px; height: 82px; padding: 10px 6px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2); cursor: pointer; border: none;
+            animation: fadeInUp 0.5s ease backwards;
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+        }
+        .menu-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); }
+        .menu-card-text { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: #000000; line-height: 1.2; }
+        .menu-center-row { display: flex; justify-content: center; gap: 14px; width: 100%; margin-bottom: 28px; }
+        .menu-card-tambah { width: 118px; }
+        .tambah-top { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; }
+        .plus-circle { width: 17px; height: 17px; background-color: #000000; color: #ffffff; border-radius: 50%; font-size: 13px; font-weight: 900; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        
+        .btn-logout {
+            background-color: #b10d2f; color: #ffffff; border: 2px solid rgba(255,255,255,0.85);
+            border-radius: 20px; width: 150px; padding: 8px 0; font-family: 'Anton', sans-serif;
+            font-size: 22px; letter-spacing: 1px; cursor: pointer; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+        .btn-logout:hover { background-color: #8f0824; }
+
+        /* View Data Pemesan */
+        #dataPemesanView { display: none; width: 100%; flex-direction: column; align-items: center; }
+        .dp-header-pill { background-color: #c2a7e0; color: #000000; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; padding: 7px 34px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: 6px; margin-bottom: 16px; text-align: center; }
+        .dp-search-input { width: 100%; max-width: 560px; background-color: #ffffff; border: 2px solid transparent; border-radius: 12px; padding: 9px 16px; font-family: 'Playfair Display', serif; font-size: 14px; color: #333333; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16); outline: none; margin-bottom: 16px; transition: border-color 0.2s ease; }
+        .dp-search-input:focus { border-color: #e1ad01; }
+        .dp-cards-container { width: 100%; display: flex; flex-direction: column; gap: 16px; margin-bottom: 22px; }
+        .dp-card { background-color: #ffffff; border-radius: 14px; padding: 12px 14px 16px 14px; box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2); width: 100%; animation: fadeInUp 0.35s ease; }
+        .dp-row-label { font-size: 12px; font-weight: 800; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+        .dp-field-label { font-size: 12px; font-weight: 800; color: #000000; margin-bottom: 5px; margin-left: 16px; }
+        .dp-pill-box { width: 100%; border: 1.5px solid #e1ad01; border-radius: 18px; padding: 7px 14px; font-size: 12.5px; font-weight: 700; color: #555555; background-color: #ffffff; margin-bottom: 10px; }
+        .dp-pill-center { text-align: center; }
+        .dp-address-box { min-height: 54px; border-radius: 16px; line-height: 1.35; }
+        .dp-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+        .dp-col-label { font-size: 12px; font-weight: 800; color: #000000; margin-bottom: 5px; text-align: center; }
+        .dp-kostum-val { color: #000000; font-weight: 800; }
+        .dp-note-textarea { width: 100%; min-height: 54px; border: 1.5px solid #e1ad01; border-radius: 16px; padding: 8px 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: #222222; resize: none; outline: none; background-color: #ffffff; }
+        .btn-kembali-abu { background-color: #333333; color: #ffffff; border: 1.5px solid rgba(255,255,255,0.7); border-radius: 18px; padding: 8px 34px; font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25); }
+
+        /* Modals */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.68); z-index: 100; justify-content: center; align-items: center; padding: 16px; }
+        .modal-overlay.show { display: flex; }
+        .modal-box { background-color: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; padding: 18px; max-height: 86vh; overflow-y: auto; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
+        .modal-overlay.show .modal-box { animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 14px; }
+        .modal-title { font-family: 'Anton', sans-serif; font-size: 20px; color: #000000; letter-spacing: 0.4px; }
+        .btn-close { background-color: #b10d2f; color: #ffffff; border: none; width: 28px; height: 28px; border-radius: 50%; font-weight: 800; cursor: pointer; }
+        .item-card { background-color: #f8f8f8; border-left: 4px solid #e1ad01; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; font-size: 12.5px; line-height: 1.45; }
+        .price-setting-card { background-color: #f8f8f8; border-left: 4px solid #e1ad01; border-radius: 12px; padding: 10px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; }
+        .price-setting-img { width: 72px; height: 78px; border-radius: 10px; object-fit: cover; background-color: #222; flex-shrink: 0; border: 1.5px solid #ddd; }
+        .price-setting-body { flex: 1; }
+        .badge-status { display: inline-block; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; }
+        .status-pending { background-color: #fff3cd; color: #996c00; }
+        .status-confirmed { background-color: #d4edda; color: #155724; }
+        .btn-action-green { background-color: #2ab80e; color: #ffffff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; margin-top: 6px; width: 100%; }
+        .btn-action-blue { background-color: #1691e6; color: #ffffff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; margin-top: 6px; width: 100%; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: #222; }
+        .form-group input[type="text"], .form-group input[type="number"], .form-group textarea { width: 100%; padding: 8px 10px; border: 1.5px solid #ccc; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 12.5px; }
+        .preview-upload-box { width: 100%; height: 165px; border: 2px dashed #e1ad01; border-radius: 12px; background-color: #fafafa; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; margin-top: 8px; position: relative; }
+        .preview-upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .preview-placeholder-text { font-size: 12px; color: #888; font-weight: 600; text-align: center; padding: 10px; }
+        .toast-notif { position: fixed; top: 22px; left: 50%; transform: translateX(-50%); background-color: #155724; color: #ffffff; padding: 11px 20px; border-radius: 22px; font-size: 13px; font-weight: 800; z-index: 300; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; text-align: center; }
+        .toast-notif.show { opacity: 1; }
+
+        button:active, a:active { transform: scale(0.95) !important; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* Responsif Laptop / Layar Lebar */
+        @media (min-width: 768px) {
+            .page-wrapper { padding: 28px 48px 40px 48px; }
+            .welcome-banner { font-size: 32px; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+            .quick-menu-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .menu-card { height: 96px; }
+            .menu-card-text { font-size: 14.5px; }
+            .menu-card-tambah { width: 220px; }
+            .dp-cards-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 22px;
+            }
+            .modal-box { max-width: 560px; }
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('smk_admin_logged_in') !== 'true') {
+            window.location.href = 'login-admin.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="page-wrapper">
+        
+        <div id="dashboardMainView">
+            <header class="top-bar">
+                <a href="index.html" class="btn-back-home">
+                    <span>←</span> Halaman Utama
+                </a>
+
+                <div class="admin-profile">
+                    <div class="admin-avatar">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="#d0d0d0">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <span class="admin-label">Admin</span>
+                </div>
+            </header>
+
+            <div class="welcome-banner">WELCOME ADMIN!</div>
+
+            <section class="stats-grid">
+                <div class="stat-card" onclick="openTotalPemesanModal()">
+                    <div class="stat-icon-circle" style="background-color: #4f9e2d;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-label-row">
+                        <span class="dot-indicator" style="background-color: #4f9e2d;"></span>
+                        <span class="stat-label-text">Total pesanan</span>
+                    </div>
+                    <div class="stat-pill" style="background-color: #4f9e2d;" id="countTotalPesanan">0</div>
+                </div>
+
+                <div class="stat-card" onclick="openPesananBaruModal()">
+                    <span class="notif-dot" id="badgePesananBaru">BARU!</span>
+                    <div class="stat-icon-circle" style="background-color: transparent;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="#e1ad01">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm-8 4h2v2H7zm4 0h2v2h-2z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-label-row">
+                        <span class="dot-indicator" style="background-color: #e1ad01;"></span>
+                        <span class="stat-label-text">Pesanan Baru</span>
+                    </div>
+                    <div class="stat-pill" style="background-color: #e1ad01;" id="countPesananBaru">0</div>
+                </div>
+
+                <div class="stat-card" onclick="openKostumTersediaModal()">
+                    <div class="stat-icon-circle" style="background-color: transparent;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="#000000">
+                            <path d="M16 4l4 2-2 4-2-1v11H8V9l-2 1-2-4 4-2c1 1.5 2.5 2 4 2s3-.5 4-2z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-label-row">
+                        <span class="dot-indicator" style="background-color: #000000;"></span>
+                        <span class="stat-label-text">Kostum yang<br>tersedia</span>
+                    </div>
+                    <div class="stat-pill" style="background-color: #000000;" id="countKostumTersedia">0</div>
+                </div>
+            </section>
+
+            <h2 class="quick-menu-title">Menu cepat</h2>
+
+            <section class="quick-menu-grid">
+                <button type="button" class="menu-card" onclick="bukaHalamanDataPemesan()">
+                    <span class="menu-card-text">Data<br>Penyewa</span>
+                </button>
+
+                <button type="button" class="menu-card" onclick="openKonfirmasiKostumModal()">
+                    <span class="menu-card-text">konfirmasi<br>Kostum</span>
+                </button>
+
+                <button type="button" class="menu-card" onclick="openPengaturanHargaModal()">
+                    <span class="menu-card-text">Pengaturan<br>Harga</span>
+                </button>
+            </section>
+
+            <div class="menu-center-row">
+                <button type="button" class="menu-card menu-card-tambah" onclick="openTambahKostumModal()">
+                    <div class="tambah-top">
+                        <span class="plus-circle">+</span>
+                        <span class="menu-card-text">Tambah</span>
+                    </div>
+                    <span class="menu-card-text">Kostum</span>
+                </button>
+
+                <button type="button" class="menu-card menu-card-tambah" onclick="openHapusKostumModal()">
+                    <div class="tambah-top">
+                        <span class="plus-circle" style="background-color: #cc0c0c;">−</span>
+                        <span class="menu-card-text" style="color: #b10d2f;">Hapus</span>
+                    </div>
+                    <span class="menu-card-text" style="color: #b10d2f;">Kostum</span>
+                </button>
+            </div>
+
+            <button type="button" class="btn-logout" onclick="logoutAdmin()">LOGOUT</button>
+        </div>
+
+        <div id="dataPemesanView">
+            <div class="dp-header-pill">Data Pemesan</div>
+            <input type="text" id="searchPenyewaInput" class="dp-search-input" placeholder="Cari nama penyewa..." onkeyup="renderDataPemesanCards()">
+            <div class="dp-cards-container" id="dpCardsContainer"></div>
+            <button type="button" class="btn-kembali-abu" onclick="tutupHalamanDataPemesan()">KEMBALI</button>
+        </div>
+
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modalTotalPemesan">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Daftar Total Pemesan</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalTotalPemesan')">✕</button>
+            </div>
+            <div id="listTotalPemesan"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalPesananBaru">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Pesanan Baru Masuk</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalPesananBaru')">✕</button>
+            </div>
+            <div id="listPesananBaru"></div>
+            <button type="button" class="btn-action-blue" style="margin-top: 10px;" onclick="closeModal('modalPesananBaru'); openKonfirmasiKostumModal();">
+                Buka Menu Konfirmasi Kostum →
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalKostumTersedia">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Daftar & Edit Kostum</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalKostumTersedia')">✕</button>
+            </div>
+            <div id="listKostumTersedia"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalKonfirmasiKostum">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Konfirmasi Pesanan Kostum</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalKonfirmasiKostum')">✕</button>
+            </div>
+            <div id="listKonfirmasiKostum"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalPengaturanHarga">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Pengaturan Harga Kostum</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalPengaturanHarga')">✕</button>
+            </div>
+            <div id="listPengaturanHarga"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalTambahKostum">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">Tambah Kostum Baru</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalTambahKostum')">✕</button>
+            </div>
+            <form onsubmit="simpanKostumBaru(event)">
+                <div class="form-group">
+                    <label>Nama Kostum Baru</label>
+                    <input type="text" id="newKostumNama" placeholder="Contoh: Kostum 5 / Maskot Garuda" required>
+                </div>
+                <div class="form-group">
+                    <label>Harga Sewa (Rp)</label>
+                    <input type="number" id="newKostumHarga" placeholder="Contoh: 300000" required>
+                </div>
+                <div class="form-group">
+                    <label>Pilih Foto Kostum (JPG / PNG)</label>
+                    <input type="file" id="newKostumFile" accept="image/*" onchange="previewFotoKostum(event)" required style="font-size: 12px;">
+                    <div class="preview-upload-box">
+                        <img id="imgPreviewKostum" alt="Preview Kostum">
+                        <span class="preview-placeholder-text" id="previewPlaceholderText">Gambar preview kostum akan muncul di sini setelah memilih foto</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Catatan Kelengkapan Kostum</label>
+                    <textarea id="newKostumKelengkapan" rows="3" placeholder="Tuliskan kelengkapan aksesoris kostum..." required></textarea>
+                </div>
+                <button type="submit" class="btn-action-green">SIMPAN KE KATALOG</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalHapusKostum">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title" style="color: #b10d2f;">Hapus Kostum Katalog</span>
+                <button type="button" class="btn-close" onclick="closeModal('modalHapusKostum')">✕</button>
+            </div>
+            <p style="font-size: 12px; color: #555; margin-bottom: 12px;">
+                Pilih kostum yang ingin dihapus secara permanen dari halaman katalog:
+            </p>
+            <div id="listHapusKostum"></div>
+        </div>
+    </div>
+
+    <div class="toast-notif" id="toastAdmin">Berhasil diubah/tersimpan</div>
+
+    <script>
+        let dbKostum = [];
+        let dbPesanan = [];
+        let uploadedBase64Image = "";
+
+        function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString('id-ID'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+        function showNotifBerhasil(pesan = "Berhasil diubah/tersimpan") {
+            const toast = document.getElementById('toastAdmin');
+            toast.innerText = "✓ " + pesan;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        async function fetchAllFromDB() {
+            try {
+                const [resKostum, resPesanan] = await Promise.all([
+                    fetch('api.php?action=get_kostum'),
+                    fetch('api.php?action=get_pesanan')
+                ]);
+                if (!resKostum.ok || !resPesanan.ok) throw new Error("DB offline");
+                dbKostum = await resKostum.json();
+                dbPesanan = await resPesanan.json();
+                localStorage.setItem('smk_kostum_data', JSON.stringify(dbKostum));
+                localStorage.setItem('smk_riwayat_pesanan', JSON.stringify(dbPesanan));
+            } catch (e) {
+                dbKostum = JSON.parse(localStorage.getItem('smk_kostum_data')) || [];
+                dbPesanan = JSON.parse(localStorage.getItem('smk_riwayat_pesanan')) || [];
+            }
+            refreshDashboardCounts();
+        }
+
+        function refreshDashboardCounts() {
+            const pesananBaruList = dbPesanan.filter(r => 
+                r.status !== "Sudah Dikonfirmasi Admin" && r.status !== "Ditolak Admin"
+            );
+            document.getElementById('countTotalPesanan').innerText = dbPesanan.length;
+            document.getElementById('countPesananBaru').innerText = pesananBaruList.length;
+            document.getElementById('countKostumTersedia').innerText = dbKostum.length;
+
+            const badgeNotif = document.getElementById('badgePesananBaru');
+            if (pesananBaruList.length > 0) {
+                badgeNotif.style.display = 'inline-block';
+                badgeNotif.innerText = pesananBaruList.length + " BARU";
+            } else {
+                badgeNotif.style.display = 'none';
+            }
+        }
+
+        function renderGambarKostumPesanan(pesanan) {
+            let matchedKostum = [];
+
+            if (pesanan.kostumIds) {
+                const ids = String(pesanan.kostumIds).split(',').map(id => Number(id.trim()));
+                matchedKostum = dbKostum.filter(k => ids.includes(k.id));
+            }
+
+            if (matchedKostum.length === 0 && pesanan.daftarKostum) {
+                const namaList = pesanan.daftarKostum.split(',').map(n => n.trim().toLowerCase());
+                matchedKostum = dbKostum.filter(k => namaList.includes(k.nama.toLowerCase()));
+            }
+
+            if (matchedKostum.length === 0) return '';
+
+            return `
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin:8px 0; padding:6px; background:#ffffff; border-radius:10px; border:1px solid #e0e0e0;">
+                    ${matchedKostum.map(k => `
+                        <div style="display:flex; flex-direction:column; align-items:center; width:64px;">
+                            <img src="${k.gambar}" alt="${k.nama}" 
+                                 style="width:60px; height:64px; object-fit:cover; border-radius:8px; border:1.5px solid #e1ad01; background:#222;"
+                                 onerror="this.src='https://via.placeholder.com/64/222/FFF?text=${encodeURIComponent(k.nama)}'">
+                            <span style="font-size:10px; font-weight:800; color:#222; text-align:center; margin-top:3px; line-height:1.1;">${k.nama}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function bukaHalamanDataPemesan() {
+            document.getElementById('dashboardMainView').style.display = 'none';
+            document.getElementById('dataPemesanView').style.display = 'flex';
+            document.getElementById('searchPenyewaInput').value = '';
+            renderDataPemesanCards();
+        }
+
+        function tutupHalamanDataPemesan() {
+            document.getElementById('dataPemesanView').style.display = 'none';
+            document.getElementById('dashboardMainView').style.display = 'flex';
+            refreshDashboardCounts();
+        }
+
+        function renderDataPemesanCards() {
+            const keyword = document.getElementById('searchPenyewaInput').value.toLowerCase().trim();
+            const filtered = dbPesanan.filter(item => item.namaPemesan.toLowerCase().includes(keyword));
+            const container = document.getElementById('dpCardsContainer');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="dp-card" style="text-align:center; font-size:13px; color:#666;">Belum ada data penyewa.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map((item, idx) => `
+                <div class="dp-card">
+                    <div class="dp-row-label"><span>${idx + 1}.</span><span>Nama Pemesan :</span></div>
+                    <div class="dp-pill-box dp-pill-center">${item.namaPemesan}</div>
+                    <div class="dp-field-label">Alamat Pemesan :</div>
+                    <div class="dp-pill-box dp-address-box">${item.alamatPemesan || '-'}</div>
+                    <div class="dp-two-col">
+                        <div>
+                            <div class="dp-col-label">Nomor Hp :</div>
+                            <div class="dp-pill-box dp-pill-center">${item.noHp}</div>
+                        </div>
+                        <div>
+                            <div class="dp-col-label">Nomor kostum :</div>
+                            <div class="dp-pill-box dp-pill-center dp-kostum-val">${item.daftarKostum}</div>
+                        </div>
+                    </div>
+                    <div class="dp-field-label">Catatan :</div>
+                    <textarea class="dp-note-textarea" placeholder="Tambahkan catatan..." onchange="simpanCatatanPemesan('${item.idPesanan}', this.value)">${item.catatanAdmin || ''}</textarea>
+                </div>
+            `).join('');
+        }
+
+        async function simpanCatatanPemesan(idPesanan, catatan) {
+            try {
+                await fetch('api.php?action=simpan_catatan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idPesanan, catatan })
+                });
+            } catch (e) {}
+            const idx = dbPesanan.findIndex(r => r.idPesanan === idPesanan);
+            if (idx !== -1) dbPesanan[idx].catatanAdmin = catatan;
+            localStorage.setItem('smk_riwayat_pesanan', JSON.stringify(dbPesanan));
+            showNotifBerhasil("Berhasil diubah/tersimpan");
+        }
+
+        function openTotalPemesanModal() {
+            const container = document.getElementById('listTotalPemesan');
+            container.innerHTML = dbPesanan.length === 0
+                ? `<p style="font-size:13px; color:#666; text-align:center; padding:12px;">Belum ada data pemesan.</p>`
+                : dbPesanan.map(r => `
+                    <div class="item-card">
+                        <div style="font-weight:800; font-size:13.5px;">👤 ${r.namaPemesan}</div>
+                        <div><strong>Alamat:</strong> ${r.alamatPemesan || '-'}</div>
+                        <div><strong>Tanggal Terakhir Pemesanan:</strong> ${r.tanggal}</div>
+                        <div><strong>Kostum:</strong> ${r.daftarKostum}</div>
+                    </div>
+                `).join('');
+            document.getElementById('modalTotalPemesan').classList.add('show');
+        }
+
+        function openPesananBaruModal() {
+            const pesananBaru = dbPesanan.filter(r => 
+                r.status !== "Sudah Dikonfirmasi Admin" && r.status !== "Ditolak Admin"
+            );
+            const container = document.getElementById('listPesananBaru');
+            container.innerHTML = pesananBaru.length === 0
+                ? `<p style="font-size:13px; color:#666; text-align:center; padding:12px;">Tidak ada pesanan baru yang menunggu.</p>`
+                : pesananBaru.map(r => `
+                    <div class="item-card" style="border-left-color: #e1ad01;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <strong>${r.idPesanan} - ${r.namaPemesan}</strong>
+                            <span class="badge-status status-pending">Pesanan Baru</span>
+                        </div>
+                        ${renderGambarKostumPesanan(r)}
+                        <div><strong>Alamat:</strong> ${r.alamatPemesan || '-'}</div>
+                        <div><strong>No. Telp:</strong> ${r.noHp}</div>
+                        <div><strong>Kostum:</strong> ${r.daftarKostum}</div>
+                        <div><strong>Tgl Pemakaian:</strong> ${r.tanggal} | <strong>Ambil:</strong> ${r.tanggalPengambilan || '-'}</div>
+                        <div><strong>Total:</strong> ${formatRupiah(r.total)}</div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:6px;">
+                            <button type="button" class="btn-action-green" style="margin-top:0;" onclick="konfirmasiPesanan('${r.idPesanan}', 'modalPesananBaru')">
+                                ✓ Konfirmasi
+                            </button>
+                            <button type="button" class="btn-action-green" style="margin-top:0; background-color:#cc0c0c;" onclick="bukaFormTolak('baru-${r.idPesanan}')">
+                                ✕ Ditolak
+                            </button>
+                        </div>
+                        <div id="formTolak-baru-${r.idPesanan}" style="display:none; margin-top:8px; background:#fff0f0; padding:8px; border-radius:8px; border:1px solid #cc0c0c;">
+                            <label style="font-size:11px; font-weight:800; color:#9e0000; display:block; margin-bottom:4px;">Alasan Penolakan:</label>
+                            <textarea id="inputAlasan-baru-${r.idPesanan}" rows="2" placeholder="Tulis alasan penolakan untuk customer..." style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:12px; font-family:'Montserrat',sans-serif;"></textarea>
+                            <button type="button" class="btn-action-green" style="background-color:#b10d2f;" onclick="prosesTolakPesanan('${r.idPesanan}', 'baru-${r.idPesanan}', 'modalPesananBaru')">
+                                Kirim Penolakan
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            document.getElementById('modalPesananBaru').classList.add('show');
+        }
+
+        function openKonfirmasiKostumModal() {
+            const container = document.getElementById('listKonfirmasiKostum');
+            container.innerHTML = dbPesanan.length === 0
+                ? `<p style="font-size:13px; color:#666; text-align:center; padding:12px;">Belum ada pesanan kostum.</p>`
+                : dbPesanan.map(r => {
+                    const isConfirmed = r.status === "Sudah Dikonfirmasi Admin";
+                    const isRejected  = r.status === "Ditolak Admin";
+                    let borderCol = '#e1ad01';
+                    let badgeStyle = 'status-pending';
+
+                    if (isConfirmed) {
+                        borderCol = '#2ab80e';
+                        badgeStyle = 'status-confirmed';
+                    } else if (isRejected) {
+                        borderCol = '#cc0c0c';
+                        badgeStyle = '';
+                    }
+
+                    return `
+                        <div class="item-card" style="border-left-color: ${borderCol};">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                <strong>${r.idPesanan} - ${r.namaPemesan}</strong>
+                                <span class="badge-status ${badgeStyle}" style="${isRejected ? 'background-color:#ffe0e0; color:#9e0000;' : ''}">${r.status}</span>
+                            </div>
+                            ${renderGambarKostumPesanan(r)}
+                            <div><strong>Kostum:</strong> ${r.daftarKostum}</div>
+                            <div><strong>Jadwal Pakai:</strong> ${r.tanggal}</div>
+                            <div><strong>Total:</strong> ${formatRupiah(r.total)}</div>
+                            ${isRejected && r.alasanPenolakan ? `<div style="margin-top:4px; color:#9e0000; font-size:11.5px;"><strong>Alasan Ditolak:</strong> ${r.alasanPenolakan}</div>` : ''}
+
+                            ${(!isConfirmed && !isRejected) ? `
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:8px;">
+                                    <button type="button" class="btn-action-green" style="margin-top:0;" onclick="konfirmasiPesanan('${r.idPesanan}', 'modalKonfirmasiKostum')">
+                                        ✓ Konfirmasi
+                                    </button>
+                                    <button type="button" class="btn-action-green" style="margin-top:0; background-color:#cc0c0c;" onclick="bukaFormTolak('konf-${r.idPesanan}')">
+                                        ✕ Ditolak
+                                    </button>
+                                </div>
+                                <div id="formTolak-konf-${r.idPesanan}" style="display:none; margin-top:8px; background:#fff0f0; padding:8px; border-radius:8px; border:1px solid #cc0c0c;">
+                                    <label style="font-size:11px; font-weight:800; color:#9e0000; display:block; margin-bottom:4px;">Alasan Penolakan:</label>
+                                    <textarea id="inputAlasan-konf-${r.idPesanan}" rows="2" placeholder="Tulis alasan penolakan untuk customer..." style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:12px; font-family:'Montserrat',sans-serif;"></textarea>
+                                    <button type="button" class="btn-action-green" style="background-color:#b10d2f;" onclick="prosesTolakPesanan('${r.idPesanan}', 'konf-${r.idPesanan}', 'modalKonfirmasiKostum')">
+                                        Kirim Penolakan
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+            document.getElementById('modalKonfirmasiKostum').classList.add('show');
+        }
+
+        async function konfirmasiPesanan(idPesanan, currentModalId) {
+            try {
+                await fetch('api.php?action=konfirmasi_pesanan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idPesanan })
+                });
+            } catch (e) {}
+
+            const idx = dbPesanan.findIndex(r => r.idPesanan === idPesanan);
+            if (idx !== -1) {
+                dbPesanan[idx].status = "Sudah Dikonfirmasi Admin";
+                dbPesanan[idx].alasanPenolakan = "";
+            }
+            localStorage.setItem('smk_riwayat_pesanan', JSON.stringify(dbPesanan));
+            refreshDashboardCounts();
+            showNotifBerhasil("Berhasil diubah/tersimpan");
+
+            if (currentModalId === 'modalPesananBaru') openPesananBaruModal();
+            if (currentModalId === 'modalKonfirmasiKostum') openKonfirmasiKostumModal();
+        }
+
+        function bukaFormTolak(key) {
+            const box = document.getElementById('formTolak-' + key);
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function prosesTolakPesanan(idPesanan, key, currentModalId) {
+            const alasan = document.getElementById('inputAlasan-' + key).value.trim();
+            if (!alasan) {
+                alert("Silakan tulis alasan penolakan terlebih dahulu!");
+                return;
+            }
+
+            try {
+                await fetch('api.php?action=tolak_pesanan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idPesanan: idPesanan, alasan: alasan })
+                });
+            } catch (e) {}
+
+            const idx = dbPesanan.findIndex(r => r.idPesanan === idPesanan);
+            if (idx !== -1) {
+                dbPesanan[idx].status = "Ditolak Admin";
+                dbPesanan[idx].alasanPenolakan = alasan;
+                localStorage.setItem('smk_riwayat_pesanan', JSON.stringify(dbPesanan));
+            }
+
+            await fetchAllFromDB();
+            showNotifBerhasil("Pesanan ditolak & alasan terkirim");
+
+            if (currentModalId === 'modalPesananBaru') openPesananBaruModal();
+            if (currentModalId === 'modalKonfirmasiKostum') openKonfirmasiKostumModal();
+        }
+
+        function openKostumTersediaModal() {
+            const container = document.getElementById('listKostumTersedia');
+            container.innerHTML = dbKostum.map(k => `
+                <div class="item-card" style="border-left-color:#000;">
+                    <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+                        <img src="${k.gambar}" alt="${k.nama}" style="width:58px; height:58px; border-radius:8px; object-fit:cover; background:#222; flex-shrink:0;" onerror="this.src='https://via.placeholder.com/60'">
+                        <div style="flex:1;">
+                            <label style="display:block; font-size:11px; font-weight:800; color:#222; margin-bottom:3px;">Nama Kostum:</label>
+                            <input type="text" id="inputNama-${k.id}" value="${k.nama}" style="width:100%; padding:6px 8px; border:1.5px solid #ccc; border-radius:7px; font-family:'Montserrat',sans-serif; font-size:12.5px; font-weight:700;">
+                            <div style="color:#2ab80e; font-weight:800; font-size:12px; margin-top:4px;">${formatRupiah(k.harga)}</div>
+                        </div>
+                    </div>
+
+                    <label style="display:block; font-size:11.5px; font-weight:800; color:#222; margin-bottom:4px;">
+                        Catatan Kelengkapan Kostum:
+                    </label>
+                    <textarea id="inputKelengkapan-${k.id}" rows="3" style="width:100%; padding:7px 9px; border:1.5px solid #ccc; border-radius:8px; font-family:'Montserrat',sans-serif; font-size:12px; line-height:1.4; resize:vertical;">${k.kelengkapan}</textarea>
+                    
+                    <button type="button" class="btn-action-blue" onclick="simpanInfoKostum(${k.id})">
+                        ✎ Simpan Perubahan Nama & Kelengkapan
+                    </button>
+                </div>
+            `).join('');
+            document.getElementById('modalKostumTersedia').classList.add('show');
+        }
+
+        async function simpanInfoKostum(id) {
+            const namaBaru        = document.getElementById('inputNama-' + id).value.trim();
+            const kelengkapanBaru = document.getElementById('inputKelengkapan-' + id).value.trim();
+
+            if (!namaBaru || !kelengkapanBaru) {
+                alert("Nama kostum dan catatan kelengkapan tidak boleh kosong!");
+                return;
+            }
+
+            try {
+                await fetch('api.php?action=update_info_kostum', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id, nama: namaBaru, kelengkapan: kelengkapanBaru })
+                });
+            } catch (e) {}
+
+            const idx = dbKostum.findIndex(k => k.id === id);
+            if (idx !== -1) {
+                dbKostum[idx].nama = namaBaru;
+                dbKostum[idx].kelengkapan = kelengkapanBaru;
+                localStorage.setItem('smk_kostum_data', JSON.stringify(dbKostum));
+            }
+
+            showNotifBerhasil("Berhasil diubah/tersimpan");
+        }
+
+        function openPengaturanHargaModal() {
+            const container = document.getElementById('listPengaturanHarga');
+            container.innerHTML = dbKostum.map(k => `
+                <div class="price-setting-card">
+                    <img src="${k.gambar}" alt="${k.nama}" class="price-setting-img" onerror="this.src='https://via.placeholder.com/80x80/222/FFF?text=${encodeURIComponent(k.nama)}'">
+                    <div class="price-setting-body">
+                        <div style="font-weight:800; font-size:13.5px; margin-bottom:2px;">${k.nama}</div>
+                        <div style="font-size:11px; color:#555; margin-bottom:6px;">Saat ini: <strong>${formatRupiah(k.harga)}</strong></div>
+                        <input type="number" id="inputHarga-${k.id}" value="${k.harga}" style="width:100%; padding:6px 8px; border:1px solid #ccc; border-radius:6px; font-size:12.5px;">
+                        <button type="button" class="btn-action-green" onclick="updateHargaKostum(${k.id})">Simpan Harga Baru</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('modalPengaturanHarga').classList.add('show');
+        }
+
+        async function updateHargaKostum(id) {
+            const harga = Number(document.getElementById('inputHarga-' + id).value);
+            if (harga > 0) {
+                try {
+                    await fetch('api.php?action=update_harga', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id, harga })
+                    });
+                } catch (e) {}
+                const idx = dbKostum.findIndex(k => k.id === id);
+                if (idx !== -1) dbKostum[idx].harga = harga;
+                localStorage.setItem('smk_kostum_data', JSON.stringify(dbKostum));
+                showNotifBerhasil("Berhasil diubah/tersimpan");
+                openPengaturanHargaModal();
+            }
+        }
+
+        function openTambahKostumModal() {
+            uploadedBase64Image = "";
+            document.getElementById('imgPreviewKostum').style.display = 'none';
+            document.getElementById('imgPreviewKostum').src = '';
+            document.getElementById('previewPlaceholderText').style.display = 'block';
+            document.getElementById('modalTambahKostum').classList.add('show');
+        }
+
+        function previewFotoKostum(event) {
+            const file = event.target.files[0];
+            const previewImg = document.getElementById('imgPreviewKostum');
+            const placeholderText = document.getElementById('previewPlaceholderText');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedBase64Image = e.target.result;
+                    previewImg.src = uploadedBase64Image;
+                    previewImg.style.display = 'block';
+                    placeholderText.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function simpanKostumBaru(e) {
+            e.preventDefault();
+            if (!uploadedBase64Image) { alert("Silakan pilih foto kostum terlebih dahulu!"); return; }
+
+            const payload = {
+                nama: document.getElementById('newKostumNama').value.trim(),
+                harga: Number(document.getElementById('newKostumHarga').value),
+                gambar: uploadedBase64Image,
+                kelengkapan: document.getElementById('newKostumKelengkapan').value.trim()
+            };
+
+            try {
+                await fetch('api.php?action=tambah_kostum', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {}
+
+            e.target.reset();
+            closeModal('modalTambahKostum');
+            await fetchAllFromDB();
+            showNotifBerhasil("Berhasil diubah/tersimpan");
+        }
+
+        function openHapusKostumModal() {
+            const container = document.getElementById('listHapusKostum');
+            if (dbKostum.length === 0) {
+                container.innerHTML = `<p style="font-size:13px; color:#666; text-align:center; padding:14px;">Tidak ada kostum di katalog.</p>`;
+            } else {
+                container.innerHTML = dbKostum.map(k => `
+                    <div class="price-setting-card" style="border-left-color: #cc0c0c;">
+                        <img src="${k.gambar}" alt="${k.nama}" class="price-setting-img" onerror="this.src='https://via.placeholder.com/80x80/222/FFF?text=${encodeURIComponent(k.nama)}'">
+                        <div class="price-setting-body">
+                            <div style="font-weight:800; font-size:13.5px; margin-bottom:2px;">${k.nama}</div>
+                            <div style="font-size:12px; color:#2ab80e; font-weight:800; margin-bottom:6px;">${formatRupiah(k.harga)}</div>
+                            <button type="button" class="btn-action-green" style="background-color: #cc0c0c; margin-top: 2px;" onclick="prosesHapusKostum(${k.id}, '${k.nama.replace(/'/g, "\\'")}')">
+                                🗑 Hapus Kostum Ini
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('modalHapusKostum').classList.add('show');
+        }
+
+        async function prosesHapusKostum(id, namaKostum) {
+            const yakin = confirm(`Apakah Anda yakin ingin menghapus "${namaKostum}" dari katalog?`);
+            if (!yakin) return;
+
+            try {
+                await fetch('api.php?action=hapus_kostum', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: id })
+                });
+            } catch (e) {}
+
+            dbKostum = dbKostum.filter(k => k.id !== id);
+            localStorage.setItem('smk_kostum_data', JSON.stringify(dbKostum));
+
+            let cartItems = JSON.parse(localStorage.getItem('smk_cart_items')) || [];
+            cartItems = cartItems.filter(c => c.id !== id);
+            localStorage.setItem('smk_cart_items', JSON.stringify(cartItems));
+
+            refreshDashboardCounts();
+            openHapusKostumModal();
+            showNotifBerhasil(`"${namaKostum}" berhasil dihapus`);
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('smk_admin_logged_in');
+            window.location.href = 'index.html';
+        }
+
+        fetchAllFromDB();
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - SMK Batik Perbaik Purworejo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ================= MODE HP (PORTRAIT) ================= */
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(165deg, #e1ad01 0%, #d96b14 52%, #b10d2f 100%);
+    background-image: url('img/bg-login-hp.jpg'); /* Foto khusus HP */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px;
+    position: relative;
+}
+
+/* ... (biarkan CSS bagian tengah tetap sama) ... */
+
+/* ================= MODE LAPTOP / PC (LANDSCAPE) ================= */
+@media (min-width: 768px) {
+    .page-wrapper {
+        background-image: url('img/bg-login-laptop.jpg'); /* Foto khusus Laptop */
+        background-position: center;
+    }
+
+    .login-center-box { max-width: 380px; }
+    .logo-box { width: 110px; height: 110px; }
+    .welcome-heading { font-size: 28px; }
+    .input-group label { font-size: 15px; }
+    .input-pill { padding: 14px 20px; font-size: 15px; }
+    .btn-login-admin { width: 220px; font-size: 28px; }
+}
+
+        .btn-back-top {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.92);
+            color: #000000;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 7px 14px;
+            border-radius: 14px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            transition: transform 0.15s ease;
+        }
+        .btn-back-top:active { transform: scale(0.95); }
+
+        .login-center-box {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-box {
+            width: 96px;
+            height: 96px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            margin-bottom: 18px;
+        }
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .welcome-heading {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 1.3;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+            margin-bottom: 14px;
+        }
+
+        .login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+        }
+        .input-pill {
+            width: 100%;
+            background-color: #ffffff;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            padding: 13px 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+            transition: border-color 0.2s ease, transform 0.15s ease;
+        }
+        .input-pill:focus {
+            border-color: #e1ad01;
+            transform: scale(1.01);
+        }
+        .input-pill::placeholder {
+            color: #888888;
+            font-weight: 700;
+        }
+
+        .error-msg {
+            display: none;
+            background-color: #ffe0e0;
+            border: 1.5px solid #cc0c0c;
+            color: #a80000;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 14px;
+            width: 100%;
+        }
+
+        .btn-login-admin {
+            background-color: #0e8a36;
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            width: 195px;
+            padding: 10px 0;
+            font-family: 'Anton', sans-serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 14px;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.35);
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+        .btn-login-admin:hover {
+            background-color: #0b6e2b;
+            transform: translateY(-2px);
+        }
+        .btn-login-admin:active {
+            transform: scale(0.95);
+        }
+
+        @media (min-width: 768px) {
+            .login-center-box { max-width: 380px; }
+            .logo-box { width: 110px; height: 110px; }
+            .welcome-heading { font-size: 28px; }
+            .input-group label { font-size: 15px; }
+            .input-pill { padding: 14px 20px; font-size: 15px; }
+            .btn-login-admin { width: 220px; font-size: 28px; }
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('smk_admin_logged_in') === 'true') {
+            window.location.href = 'admin-dashboard.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <a href="index.html" class="btn-back-top">← Beranda</a>
+
+        <div class="login-center-box">
+            <div class="logo-box">
+                <img src="logo-smk.png" alt="Logo SMK Batik Perbaik Purworejo">
+            </div>
+
+            <div class="welcome-heading">
+                Selamat Datang<br>Admin
+            </div>
+
+            <form class="login-form" onsubmit="prosesLoginAdmin(event)">
+                <div class="error-msg" id="errorMsg">Username atau Password Admin salah!</div>
+
+                <div class="input-group">
+                    <label for="adminUsername">Username :</label>
+                    <input type="text" id="adminUsername" class="input-pill" placeholder="Masukkan Username" required autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="adminPassword">Password :</label>
+                    <input type="password" id="adminPassword" class="input-pill" placeholder="Masukkan Password" required>
+                </div>
+
+                <button type="submit" class="btn-login-admin">LOGIN</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function prosesLoginAdmin(e) {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+            const errorBox = document.getElementById('errorMsg');
+            errorBox.style.display = 'none';
+
+            try {
+                const res = await fetch('api.php?action=login_admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                if (!res.ok) throw new Error("DB offline");
+                const data = await res.json();
+
+                if (data.status === 'success') {
+                    localStorage.setItem('smk_admin_logged_in', 'true');
+                    window.location.href = 'admin-dashboard.html';
+                    return;
+                } else {
+                    errorBox.style.display = 'block';
+                    return;
+                }
+            } catch (err) {
+                if (username === "admin" && password === "admin123") {
+                    localStorage.setItem('smk_admin_logged_in', 'true');
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    errorBox.style.display = 'block';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
