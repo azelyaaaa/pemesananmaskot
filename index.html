@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sewa Kostum Bersama - SMK Batik Perbaik Purworejo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Full 1 Layar HP & Laptop */
+        /* ================= MODE HP (PORTRAIT) ================= */
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #d8a61c;
+    background-image: url('img/bg-beranda-hp.jpg'); /* Foto khusus HP */
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* ... (biarkan CSS bagian tengah tetap sama) ... */
+
+/* ================= MODE LAPTOP / PC (LANDSCAPE) ================= */
+@media (min-width: 768px) {
+    .page-wrapper {
+        background-image: url('img/bg-beranda-laptop.jpg'); /* Foto khusus Laptop */
+        background-position: center center;
+    }
+
+    .logo-corner {
+        top: 28px;
+        right: 40px;
+        width: 82px;
+        height: 82px;
+        border-radius: 20px;
+    }
+    .hero-header { padding-top: 44px; }
+    .title-l1 { font-size: 32px; }
+    .title-l2 { font-size: 36px; }
+    .title-l3 { font-size: 32px; }
+    .hero-center { padding-bottom: 68px; }
+    .btn-katalog {
+        font-size: 34px;
+        padding: 14px 46px;
+    }
+    .btn-login-overlap {
+        top: -27px;
+        font-size: 28px;
+        padding: 9px 76px;
+    }
+    .warning-title { font-size: 21px; }
+    .warning-sub { font-size: 16px; }
+}
+
+        /* Logo Pojok Kanan Atas */
+        .logo-corner {
+            position: absolute;
+            top: 20px;
+            right: 22px;
+            width: 66px;
+            height: 66px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+        .logo-corner img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Judul Utama di Bagian Atas Tengah */
+        .hero-header {
+            width: 100%;
+            padding: 36px 20px 10px 20px;
+            text-align: center;
+            z-index: 5;
+        }
+        .hero-title {
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.25;
+            letter-spacing: 0.4px;
+            -webkit-text-stroke: 1.4px #000000;
+            paint-order: stroke fill;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45);
+        }
+        .title-l1 { font-size: 22px; }
+        .title-l2 { font-size: 25px; }
+        .title-l3 { font-size: 22px; }
+
+        /* Bagian Tengah: Tombol LIHAT KATALOG */
+.hero-center {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;        /* Menggeser tombol ke bagian bawah area tengah */
+    justify-content: center;
+    padding: 20px 20px 56px 20px; /* Angka 56px mengatur jarak dari tombol LOGIN (perbesar jika ingin lebih ke atas, perkecil jika ingin lebih turun) */
+    z-index: 5;
+}
+        .btn-katalog {
+            background-color: #16a89e;
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Anton', sans-serif;
+            font-size: 28px;
+            letter-spacing: 1px;
+            padding: 12px 34px;
+            border-radius: 20px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            transition: transform 0.18s ease, background-color 0.2s ease;
+        }
+        .btn-katalog:hover {
+            background-color: #128c84;
+            transform: translateY(-2px);
+        }
+        .btn-katalog:active {
+            transform: scale(0.95);
+        }
+
+        /* Bar Kuning Bawah & Tombol LOGIN Menumpang di Atasnya */
+        .bottom-yellow-bar {
+            width: 100%;
+            background-color: #e3d514;
+            padding: 30px 16px 18px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 6;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-login-overlap {
+            position: absolute;
+            top: -24px;
+            background-color: #b10d2f;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Anton', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1.2px;
+            padding: 8px 54px;
+            border-radius: 18px;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+            transition: transform 0.18s ease, background-color 0.2s ease;
+        }
+        .btn-login-overlap:hover {
+            background-color: #8f0824;
+            transform: translateY(-2px);
+        }
+        .btn-login-overlap:active {
+            transform: scale(0.95);
+        }
+
+        .warning-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 18px;
+            color: #000000;
+            letter-spacing: 0.6px;
+            margin-bottom: 2px;
+        }
+        .warning-sub {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+        }
+
+        /* Responsif Laptop / Layar Lebar */
+        @media (min-width: 768px) {
+            .logo-corner {
+                top: 28px;
+                right: 40px;
+                width: 82px;
+                height: 82px;
+                border-radius: 20px;
+            }
+            .hero-header { padding-top: 44px; }
+            .title-l1 { font-size: 32px; }
+            .title-l2 { font-size: 36px; }
+            .title-l3 { font-size: 32px; }
+            .btn-katalog {
+                font-size: 34px;
+                padding: 14px 46px;
+            }
+            .btn-login-overlap {
+                top: -27px;
+                font-size: 28px;
+                padding: 9px 76px;
+            }
+            .warning-title { font-size: 21px; }
+            .warning-sub { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="logo-corner">
+            <img src="logo-smk.png" alt="Logo SMK Batik Perbaik Purworejo">
+        </div>
+
+        <header class="hero-header">
+            <h1 class="hero-title">
+                <div class="title-l1">Sewa Kostum Bersama</div>
+                <div class="title-l2">SMK</div>
+                <div class="title-l3">Batik Perbaik Purworejo</div>
+            </h1>
+        </header>
+
+        <main class="hero-center">
+            <a href="katalog.html" class="btn-katalog">LIHAT KATALOG</a>
+        </main>
+
+        <footer class="bottom-yellow-bar">
+            <a href="login-admin.html" class="btn-login-overlap">LOGIN</a>
+            <div class="warning-title">PERHATIAN!!!!!</div>
+            <div class="warning-sub">Akses Login Hanya untuk ADMIN</div>
+        </footer>
+    </div>
+</body>
+</html>
