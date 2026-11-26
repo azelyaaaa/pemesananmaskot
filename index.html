@@ -16,152 +16,120 @@
             overflow-x: hidden;
         }
 
-        /* Full 1 Layar HP & Laptop */
-        /* ================= MODE HP (PORTRAIT) ================= */
-.page-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #d8a61c;
-    background-image: url('img/bg-beranda-hp.jpg'); /* Foto khusus HP */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-}
+        /* ================= MODE HP / PORTRAIT (PERSIS DESAIN TERBARU) ================= */
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #d8a61c;
+            background-image: url('img/bg-beranda-hp.jpg'); /* Foto background khusus HP */
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
 
-/* ... (biarkan CSS bagian tengah tetap sama) ... */
+        /* Bagian Atas HP: Logo Tengah + Teks Judul Tepat di Bawahnya */
+        .hero-header {
+            width: 100%;
+            padding: 46px 18px 10px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 5;
+        }
 
-/* ================= MODE LAPTOP / PC (LANDSCAPE) ================= */
-@media (min-width: 768px) {
-    .page-wrapper {
-        background-image: url('img/bg-beranda-laptop.jpg'); /* Foto khusus Laptop */
-        background-position: center center;
-    }
-
-    .logo-corner {
-        top: 28px;
-        right: 40px;
-        width: 82px;
-        height: 82px;
-        border-radius: 20px;
-    }
-    .hero-header { padding-top: 44px; }
-    .title-l1 { font-size: 32px; }
-    .title-l2 { font-size: 36px; }
-    .title-l3 { font-size: 32px; }
-    .hero-center { padding-bottom: 68px; }
-    .btn-katalog {
-        font-size: 34px;
-        padding: 14px 46px;
-    }
-    .btn-login-overlap {
-        top: -27px;
-        font-size: 28px;
-        padding: 9px 76px;
-    }
-    .warning-title { font-size: 21px; }
-    .warning-sub { font-size: 16px; }
-}
-
-        /* Logo Pojok Kanan Atas */
-        .logo-corner {
-            position: absolute;
-            top: 20px;
-            right: 22px;
-            width: 66px;
-            height: 66px;
+        .logo-box {
+            width: 96px;
+            height: 96px;
             background-color: #ffffff;
-            border-radius: 16px;
-            padding: 5px;
+            border-radius: 22px;
+            padding: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            z-index: 10;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
+            margin-bottom: 16px;
         }
-        .logo-corner img {
+        .logo-box img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        /* Judul Utama di Bagian Atas Tengah */
-        .hero-header {
-            width: 100%;
-            padding: 36px 20px 10px 20px;
-            text-align: center;
-            z-index: 5;
-        }
         .hero-title {
             font-weight: 900;
             color: #ffffff;
-            line-height: 1.25;
-            letter-spacing: 0.4px;
-            -webkit-text-stroke: 1.4px #000000;
-            paint-order: stroke fill;
-            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45);
+            line-height: 1.22;
+            letter-spacing: 0.2px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
         }
-        .title-l1 { font-size: 22px; }
-        .title-l2 { font-size: 25px; }
-        .title-l3 { font-size: 22px; }
+        .title-l1 { font-size: 20px; }
+        .title-l2 { font-size: 24px; }
+        .title-l3 { font-size: 21px; }
 
-        /* Bagian Tengah: Tombol LIHAT KATALOG */
-.hero-center {
-    flex: 1;
-    display: flex;
-    align-items: flex-end;        /* Menggeser tombol ke bagian bawah area tengah */
-    justify-content: center;
-    padding: 20px 20px 56px 20px; /* Angka 56px mengatur jarak dari tombol LOGIN (perbesar jika ingin lebih ke atas, perkecil jika ingin lebih turun) */
-    z-index: 5;
-}
+        /* Bagian Tengah Bawah HP: Tombol LIHAT KATALOG */
+        .hero-center {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px 20px 68px 20px;
+            z-index: 5;
+        }
         .btn-katalog {
-            background-color: #16a89e;
+            background-color: #13a89e;
             color: #000000;
             text-decoration: none;
             font-family: 'Anton', sans-serif;
-            font-size: 28px;
+            font-size: 31px;
             letter-spacing: 1px;
-            padding: 12px 34px;
+            padding: 12px 38px;
             border-radius: 20px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
             transition: transform 0.18s ease, background-color 0.2s ease;
         }
         .btn-katalog:hover {
-            background-color: #128c84;
+            background-color: #0f8c84;
             transform: translateY(-2px);
         }
         .btn-katalog:active {
             transform: scale(0.95);
         }
 
-        /* Bar Kuning Bawah & Tombol LOGIN Menumpang di Atasnya */
+        /* Bar Kuning Bawah Melengkung + Tombol LOGIN Lebar Menumpang di Atasnya */
         .bottom-yellow-bar {
             width: 100%;
-            background-color: #e3d514;
-            padding: 30px 16px 18px 16px;
+            background-color: #e3e314;
+            border-top-left-radius: 26px;
+            border-top-right-radius: 26px;
+            padding: 36px 16px 22px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             z-index: 6;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.12);
         }
         .btn-login-overlap {
             position: absolute;
-            top: -24px;
+            top: -28px;
+            width: 68%;
+            max-width: 260px;
+            text-align: center;
             background-color: #b10d2f;
             color: #ffffff;
             text-decoration: none;
             font-family: 'Anton', sans-serif;
-            font-size: 24px;
+            font-size: 30px;
             letter-spacing: 1.2px;
-            padding: 8px 54px;
+            padding: 8px 20px;
             border-radius: 18px;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.18s ease, background-color 0.2s ease;
         }
         .btn-login-overlap:hover {
@@ -174,37 +142,66 @@
 
         .warning-title {
             font-family: 'Anton', sans-serif;
-            font-size: 18px;
+            font-size: 19px;
             color: #000000;
             letter-spacing: 0.6px;
             margin-bottom: 2px;
         }
         .warning-sub {
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 700;
             color: #000000;
             text-align: center;
         }
 
-        /* Responsif Laptop / Layar Lebar */
+        /* ================= MODE LAPTOP / LANDSCAPE (PERSIS DESAIN LAPTOP) ================= */
         @media (min-width: 768px) {
-            .logo-corner {
+            .page-wrapper {
+                background-image: url('img/bg-beranda-laptop.jpg'); /* Foto background khusus Laptop */
+                background-position: center center;
+            }
+
+            /* Logo pindah ke pojok kanan atas saat mode Laptop */
+            .logo-box {
+                position: absolute;
                 top: 28px;
                 right: 40px;
                 width: 82px;
                 height: 82px;
                 border-radius: 20px;
+                margin-bottom: 0;
             }
-            .hero-header { padding-top: 44px; }
+
+            .hero-header {
+                padding-top: 44px;
+            }
+
+            .hero-title {
+                -webkit-text-stroke: 1.4px #000000;
+                paint-order: stroke fill;
+                text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45);
+            }
             .title-l1 { font-size: 32px; }
             .title-l2 { font-size: 36px; }
             .title-l3 { font-size: 32px; }
+
+            .hero-center {
+                padding-bottom: 68px;
+            }
             .btn-katalog {
                 font-size: 34px;
                 padding: 14px 46px;
             }
+
+            .bottom-yellow-bar {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                padding: 32px 16px 20px 16px;
+            }
             .btn-login-overlap {
                 top: -27px;
+                width: auto;
+                max-width: none;
                 font-size: 28px;
                 padding: 9px 76px;
             }
@@ -215,11 +212,12 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <div class="logo-corner">
-            <img src="logo-smk.png" alt="Logo SMK Batik Perbaik Purworejo">
-        </div>
-
+        <!-- Header: Logo SMK & Judul -->
         <header class="hero-header">
+            <div class="logo-box">
+                <img src="logo-smk.png" alt="Logo SMK Batik Perbaik Purworejo">
+            </div>
+
             <h1 class="hero-title">
                 <div class="title-l1">Sewa Kostum Bersama</div>
                 <div class="title-l2">SMK</div>
@@ -227,10 +225,12 @@
             </h1>
         </header>
 
+        <!-- Tombol LIHAT KATALOG -->
         <main class="hero-center">
             <a href="katalog.html" class="btn-katalog">LIHAT KATALOG</a>
         </main>
 
+        <!-- Bar Kuning Bawah & Tombol LOGIN -->
         <footer class="bottom-yellow-bar">
             <a href="login-admin.html" class="btn-login-overlap">LOGIN</a>
             <div class="warning-title">PERHATIAN!!!!!</div>
